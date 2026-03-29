@@ -1,7 +1,7 @@
 export const createTable = `
   CREATE TABLE insights (
     id INTEGER PRIMARY KEY ASC NOT NULL,
-    brand INTEGER NOT NULL,
+    brandId INTEGER NOT NULL,
     createdAt TEXT NOT NULL,
     text TEXT NOT NULL
   )
@@ -9,16 +9,16 @@ export const createTable = `
 
 export type Row = {
   id: number;
-  brand: number;
+  brandId: number;
   createdAt: string;
   text: string;
 };
 
 export type Insert = {
-  brand: number;
+  brandId: number;
   createdAt: string;
   text: string;
 };
 
 export const insertStatement = (item: Insert) =>
-  `INSERT INTO insights (brand, createdAt, text) VALUES (${item.brand}, '${item.createdAt}', '${item.text}')`;
+  input.db.sql`INSERT INTO insights (brandId, createdAt, text) VALUES (${input.brandId}, ${createdAt}, ${input.text})`;

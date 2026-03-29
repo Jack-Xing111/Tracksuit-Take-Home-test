@@ -5,16 +5,31 @@ import styles from "./app.module.css";
 import type { Insight } from "../schemas/insight.ts";
 
 export const App = () => {
-  const [insights, setInsights] = useState<Insight>([]);
+  const [insights, setInsights] = useState<Insight[]>([]);
+
+  const fetchInsights = async () => {
+    try {
+      const res = await fetch(`/api/insights`);
+      const data = await res.json();
+      setInsights(data);
+    } catch (error) {
+      console.error("Failed to fetch insights:", error);
+    }
+  };
 
   useEffect(() => {
-    fetch(`/api/insights`).then((res) => setInsights(res.json()));
+    fetchInsights();
   }, []);
 
   return (
     <main className={styles.main}>
-      <Header />
-      <Insights className={styles.insights} insights={insights} />
+      <Header onInsightAdded={fetchInsights} />
+
+      <Insights
+        className={styles.insights}
+        insights={insights}
+        onInsightDeleted={fetchInsights}
+      />
     </main>
   );
 };
