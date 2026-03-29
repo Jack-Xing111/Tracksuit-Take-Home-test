@@ -1,19 +1,27 @@
 {
   "$schema": "https://raw.githubusercontent.com/denoland/deno/refs/heads/v2.1/cli/schemas/config-file.v1.json",
-  "workspace": ["./server", "./client", "./lib"],
+  "workspace": [
+    "./server",
+    "./client",
+    "./lib"
+  ],
   "nodeModulesDir": "auto",
   "tasks": {
-    "dev": {
-      "command": "",
-      "dependencies": ["dev:server", "dev:client"]
-    },
     "dev:server": "cd server && deno task dev",
     "dev:client": "cd client && deno task dev",
-    "test:client": "cd client && deno task test"
+    "dev": "deno task dev:server & deno task dev:client",
+    "test:server": "cd server && deno test -A --env-file=../.env",
+    "test:client": "cd client && deno task test",
+    "test": "deno task test:server && deno task test:client"
   },
   "compilerOptions": {
     "strict": true,
-    "lib": ["deno.ns", "dom", "dom.iterable", "dom.asynciterable"],
+    "lib": [
+      "deno.ns",
+      "dom",
+      "dom.iterable",
+      "dom.asynciterable"
+    ],
     "jsx": "react-jsx",
     "jsxImportSource": "react"
   }

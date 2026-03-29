@@ -1,3 +1,5 @@
+import type { Database } from "@db/sqlite";
+
 export const createTable = `
   CREATE TABLE insights (
     id INTEGER PRIMARY KEY ASC NOT NULL,
@@ -20,5 +22,6 @@ export type Insert = {
   text: string;
 };
 
-export const insertStatement = (item: Insert) =>
-  input.db.sql`INSERT INTO insights (brandId, createdAt, text) VALUES (${input.brandId}, ${createdAt}, ${input.text})`;
+export const insertInsight = (db: Database, item: Insert) => {
+  return db.sql`INSERT INTO insights (brandId, createdAt, text) VALUES (${item.brandId}, ${item.createdAt}, ${item.text})`;
+};
